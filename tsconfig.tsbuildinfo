@@ -1,0 +1,1 @@
+{"root":["./src/index.ts","./src/controller/bookauthcontroller.ts","./src/model/bookmodel.ts","./src/route/authbookroutes.ts"],"version":"5.9.2"}
