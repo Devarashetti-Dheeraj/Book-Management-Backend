@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';
+import mongoose, {Error} from 'mongoose';
 import dotenv from 'dotenv';
 import authRouter from './route/authBookRoutes.js';
 import cors from 'cors';
@@ -24,7 +24,7 @@ mongoose.connect(mongouri || "mongodb+srv://dheeraj2032006_db_user:E6XfPVS7ROw7h
         console.log("Server has Started on Port", process.env.PORT)
     })
 })
-.catch((err)=>{
+.catch((err: Error)=>{
     console.log(err)
 })
 

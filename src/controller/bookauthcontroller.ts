@@ -1,5 +1,5 @@
 import BookSchema from "../model/BookModel.js";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 
 export const addBook = async (req: Request,res: Response)=>{
     try{
