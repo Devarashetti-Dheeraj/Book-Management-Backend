@@ -9,7 +9,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 app.use('/api', authRouter);
-mongoose.connect(process.env.Mongo_URI || "mongodb://localhost:27017/project/book")
+const mongouri = process.env.Mongo_URI;
+mongoose.connect(mongouri || "", { dbName: "Book_Management" })
     .then(() => {
     console.log("MongoDB Connected");
     app.listen(PORT, () => {

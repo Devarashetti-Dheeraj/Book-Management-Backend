@@ -4,9 +4,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsc -b",
-    "build": "nodemon ./dist/index.js",
-    "start": "npm run dev && npm run build",
+    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
+    "build": "tsc -b",
+    "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
