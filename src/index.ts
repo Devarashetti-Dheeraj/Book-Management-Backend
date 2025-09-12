@@ -17,7 +17,7 @@ app.use('/api',authRouter)
 
 const mongouri = process.env.Mongo_URI;
 
-mongoose.connect(mongouri || "", {dbName: "Book_Management"})
+mongoose.connect(mongouri || "mongodb+srv://dheeraj2032006_db_user:E6XfPVS7ROw7hnf2@cluster0.x8nvyzs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {dbName: "Book_Management"})
 .then(()=>{
     console.log("MongoDB Connected")
     app.listen(PORT,()=>{
