@@ -1,9 +1,9 @@
-import BookModel, {IBook} from "../model/BookModel";
+import {IBook, Book} from "../model/BookModel";
 import type { Request, Response } from "express";
 
 export const addBook = async (req: Request,res: Response)=>{
     try{
-        const book = new BookModel(req.body as IBook)
+        const book = new Book(req.body as IBook)
         const savedBook = await book.save()
         res.status(201).json({
             message: "Book Added Succesfully",
@@ -19,7 +19,7 @@ export const addBook = async (req: Request,res: Response)=>{
 
 export const getAllbooks = async (req: Request, res: Response) => {
   try {
-    const books: IBook[] = await BookModel.find();
+    const books: IBook[] = await Book.find();
     const allBooks = books.map((book) => ({
       _id: book._id, 
       title: book.title,    
@@ -41,7 +41,7 @@ export const getAllbooks = async (req: Request, res: Response) => {
 
 export const getBookById = async (req: Request, res: Response)=>{
     try{
-        const book = await BookModel.findById(req.params.id)
+        const book = await Book.findById(req.params.id)
         if(!book){
             return res.status(400).json({
                 message: "Book Not Found"
@@ -61,7 +61,7 @@ export const getBookById = async (req: Request, res: Response)=>{
 
 export const deleteBook = async (req: Request, res: Response)=>{
     try{
-        const book = await BookModel.findByIdAndDelete(req.params.id)
+        const book = await Book.findByIdAndDelete(req.params.id)
         if(!book){
             return res.status(400).json({
                 message: "Book Not Found"
@@ -81,7 +81,7 @@ export const deleteBook = async (req: Request, res: Response)=>{
 
 export const updateBook = async(req:Request, res: Response) => {
     try{
-        const book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {new:true, runValidators: true})
+        const book = await Book.findByIdAndUpdate(req.params.id, req.body, {new:true, runValidators: true})
         if(!book){
             return res.status(400).json({
                 message: "Book Not Found"

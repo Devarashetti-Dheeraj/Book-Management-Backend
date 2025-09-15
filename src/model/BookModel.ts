@@ -1,7 +1,8 @@
-import mongoose, {Document, Schema} from "mongoose";
+import mongoose, {Document, Schema, model} from "mongoose";
 
 //making a ts interface
 export interface IBook extends Document { // it means this interface will include all the fields that Mongoose automatically puts on every document (_id, createdAt, etc.), plus the fields we define (title, author...
+    _id: string,
     title: string;
     author: string;
     genre: string;
@@ -27,5 +28,5 @@ const BookModel: Schema<IBook> = new Schema({
     }
 })
 
-export default mongoose.model<IBook>('books',BookModel)
+export const Book = model<IBook>('books',BookModel)
 

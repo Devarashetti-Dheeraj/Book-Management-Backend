@@ -1,13 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateBook = exports.deleteBook = exports.getBookById = exports.getAllbooks = exports.addBook = void 0;
-const BookModel_1 = __importDefault(require("../model/BookModel"));
+const BookModel_1 = require("../model/BookModel");
 const addBook = async (req, res) => {
     try {
-        const book = new BookModel_1.default(req.body);
+        const book = new BookModel_1.Book(req.body);
         const savedBook = await book.save();
         res.status(201).json({
             message: "Book Added Succesfully",
@@ -24,7 +21,7 @@ const addBook = async (req, res) => {
 exports.addBook = addBook;
 const getAllbooks = async (req, res) => {
     try {
-        const books = await BookModel_1.default.find();
+        const books = await BookModel_1.Book.find();
         const allBooks = books.map((book) => ({
             _id: book._id,
             title: book.title,
@@ -47,7 +44,7 @@ const getAllbooks = async (req, res) => {
 exports.getAllbooks = getAllbooks;
 const getBookById = async (req, res) => {
     try {
-        const book = await BookModel_1.default.findById(req.params.id);
+        const book = await BookModel_1.Book.findById(req.params.id);
         if (!book) {
             return res.status(400).json({
                 message: "Book Not Found"
@@ -68,7 +65,7 @@ const getBookById = async (req, res) => {
 exports.getBookById = getBookById;
 const deleteBook = async (req, res) => {
     try {
-        const book = await BookModel_1.default.findByIdAndDelete(req.params.id);
+        const book = await BookModel_1.Book.findByIdAndDelete(req.params.id);
         if (!book) {
             return res.status(400).json({
                 message: "Book Not Found"
@@ -89,7 +86,7 @@ const deleteBook = async (req, res) => {
 exports.deleteBook = deleteBook;
 const updateBook = async (req, res) => {
     try {
-        const book = await BookModel_1.default.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        const book = await BookModel_1.Book.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!book) {
             return res.status(400).json({
                 message: "Book Not Found"
