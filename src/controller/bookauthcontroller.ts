@@ -1,9 +1,9 @@
-import BookSchema from "../model/BookModel.js";
+import BookModel, {IBook} from "../model/BookModel";
 import type { Request, Response } from "express";
 
 export const addBook = async (req: Request,res: Response)=>{
     try{
-        const book = new BookSchema(req.body)
+        const book = new BookModel(req.body as IBook)
         const savedBook = await book.save()
         res.status(201).json({
             message: "Book Added Succesfully",
@@ -12,17 +12,17 @@ export const addBook = async (req: Request,res: Response)=>{
     }catch(err){
         res.status(400).json({
             message: "Failed to Add Book",
-            error: err
+            error: err instanceof Error ? err.message : err
         })
     }
 }
 
 export const getAllbooks = async (req: Request, res: Response) => {
   try {
-    const books = await BookSchema.find();
+    const books: IBook[] = await BookModel.find();
     const allBooks = books.map((book) => ({
-      _id: book._id.toString(), 
-      title: book.title,
+      _id: book._id, 
+      title: book.title,    
       author: book.author,        
       genre: book.genre,
       publishedDate: book.publishedDate,
@@ -34,14 +34,14 @@ export const getAllbooks = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(400).json({
       message: "Failed to Get All Book",
-      error: err,
+      error: err instanceof Error ? err.message : err,
     });
   }
 };
 
 export const getBookById = async (req: Request, res: Response)=>{
     try{
-        const book = await BookSchema.findById(req.params.id)
+        const book = await BookModel.findById(req.params.id)
         if(!book){
             return res.status(400).json({
                 message: "Book Not Found"
@@ -54,14 +54,14 @@ export const getBookById = async (req: Request, res: Response)=>{
     }catch(err){
         res.status(400).json({
             message: "Failed to Get Book",
-            error: err
+            error: err instanceof Error ? err.message : err
         })
     }
 }
 
 export const deleteBook = async (req: Request, res: Response)=>{
     try{
-        const book = await BookSchema.findByIdAndDelete(req.params.id)
+        const book = await BookModel.findByIdAndDelete(req.params.id)
         if(!book){
             return res.status(400).json({
                 message: "Book Not Found"
@@ -74,14 +74,14 @@ export const deleteBook = async (req: Request, res: Response)=>{
     }catch(err){
         res.status(400).json({
             message: "Failed to Delete Book",
-            error: err
+            error: err instanceof Error ? err.message : err
         })
     }
 }
 
 export const updateBook = async(req:Request, res: Response) => {
     try{
-        const book = await BookSchema.findByIdAndUpdate(req.params.id, req.body, {new:true, runValidators: true})
+        const book = await BookModel.findByIdAndUpdate(req.params.id, req.body, {new:true, runValidators: true})
         if(!book){
             return res.status(400).json({
                 message: "Book Not Found"
@@ -95,7 +95,7 @@ export const updateBook = async(req:Request, res: Response) => {
     }catch(err){
         res.status(400).json({
             message: "Book Not Found",
-            error: err
+            error: err instanceof Error ? err.message : err
         })
     }
 }

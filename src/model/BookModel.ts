@@ -1,6 +1,14 @@
-import mongoose from "mongoose";
+import mongoose, {Document, Schema} from "mongoose";
 
-const BookSchema = new mongoose.Schema({
+//making a ts interface
+export interface IBook extends Document { // it means this interface will include all the fields that Mongoose automatically puts on every document (_id, createdAt, etc.), plus the fields we define (title, author...
+    title: string;
+    author: string;
+    genre: string;
+    publishedDate: string;
+}
+
+const BookModel: Schema<IBook> = new Schema({
     title:{
         type: String,
         required: true
@@ -10,7 +18,7 @@ const BookSchema = new mongoose.Schema({
         required: true
     },
     genre:{
-        type: String,
+        type: String,   
         required: true
     },
     publishedDate:{
@@ -19,4 +27,5 @@ const BookSchema = new mongoose.Schema({
     }
 })
 
-export default mongoose.model('books',BookSchema)
+export default mongoose.model<IBook>('books',BookModel)
+

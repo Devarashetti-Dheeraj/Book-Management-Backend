@@ -1,14 +1,14 @@
 import  express from 'express';
-import mongoose, {Error} from 'mongoose';
+import mongoose from 'mongoose';
 import  dotenv from 'dotenv';
-import authRouter from './route/authBookRoutes.js';
+import authRouter from './route/authBookRoutes';
 import  cors from 'cors';
 
 const app = express();
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
 app.use(express.json())
 app.use(cors());
@@ -21,10 +21,10 @@ mongoose.connect(mongouri || "mongodb+srv://dheeraj2032006_db_user:E6XfPVS7ROw7h
 .then(()=>{
     console.log("MongoDB Connected")
     app.listen(PORT,()=>{
-        console.log("Server has Started on Port", process.env.PORT)
+        console.log(`Server has Started on Port ${PORT}`)
     })
 })
-.catch((err: Error)=>{
+.catch((err: mongoose.Error)=>{
     console.log(err)
 })
 
