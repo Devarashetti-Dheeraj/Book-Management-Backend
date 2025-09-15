@@ -1,5 +1,5 @@
 import {IBook, Book} from "../model/BookModel";
-import type { Request, Response } from "express";
+import { Request, Response } from "express";
 
 export const addBook = async (req: Request,res: Response)=>{
     try{

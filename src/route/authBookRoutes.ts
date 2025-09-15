@@ -1,7 +1,7 @@
-import express from 'express';
+import {Router} from 'express';
 import { addBook, getAllbooks, getBookById, deleteBook, updateBook } from "../controller/bookauthcontroller";
 
-const authRouter = express.Router();
+const authRouter: Router = Router();
 
 authRouter.post('/addBook', addBook)
 authRouter.get('/getAllBooks', getAllbooks)
