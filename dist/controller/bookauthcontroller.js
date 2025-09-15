@@ -1,17 +1,8 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 import BookSchema from "../model/BookModel.js";
-export const addBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+export const addBook = async (req, res) => {
     try {
         const book = new BookSchema(req.body);
-        const savedBook = yield book.save();
+        const savedBook = await book.save();
         res.status(201).json({
             message: "Book Added Succesfully",
             data: savedBook
@@ -23,10 +14,10 @@ export const addBook = (req, res) => __awaiter(void 0, void 0, void 0, function*
             error: err
         });
     }
-});
-export const getAllbooks = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const getAllbooks = async (req, res) => {
     try {
-        const books = yield BookSchema.find();
+        const books = await BookSchema.find();
         const allBooks = books.map((book) => ({
             _id: book._id.toString(),
             title: book.title,
@@ -45,10 +36,10 @@ export const getAllbooks = (req, res) => __awaiter(void 0, void 0, void 0, funct
             error: err,
         });
     }
-});
-export const getBookById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const getBookById = async (req, res) => {
     try {
-        const book = yield BookSchema.findById(req.params.id);
+        const book = await BookSchema.findById(req.params.id);
         if (!book) {
             return res.status(400).json({
                 message: "Book Not Found"
@@ -65,10 +56,10 @@ export const getBookById = (req, res) => __awaiter(void 0, void 0, void 0, funct
             error: err
         });
     }
-});
-export const deleteBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const deleteBook = async (req, res) => {
     try {
-        const book = yield BookSchema.findByIdAndDelete(req.params.id);
+        const book = await BookSchema.findByIdAndDelete(req.params.id);
         if (!book) {
             return res.status(400).json({
                 message: "Book Not Found"
@@ -85,10 +76,10 @@ export const deleteBook = (req, res) => __awaiter(void 0, void 0, void 0, functi
             error: err
         });
     }
-});
-export const updateBook = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+};
+export const updateBook = async (req, res) => {
     try {
-        const book = yield BookSchema.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+        const book = await BookSchema.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!book) {
             return res.status(400).json({
                 message: "Book Not Found"
@@ -105,4 +96,4 @@ export const updateBook = (req, res) => __awaiter(void 0, void 0, void 0, functi
             error: err
         });
     }
-});
+};
