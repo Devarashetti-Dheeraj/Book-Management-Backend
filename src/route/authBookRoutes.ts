@@ -1,12 +1,12 @@
 import {Router} from 'express';
 import { addBook, getAllbooks, getBookById, deleteBook, updateBook } from "../controller/bookauthcontroller";
 
-const authRouter: Router = Router();
+const routes: Router = Router();
 
-authRouter.post('/addBook', addBook)
-authRouter.get('/getAllBooks', getAllbooks)
-authRouter.get('/getBookById/:id', getBookById)
-authRouter.delete('/deleteBook/:id', deleteBook)
-authRouter.put('/updateBook/:id', updateBook)
+routes.post('/addBook', addBook)
+routes.get('/getAllBooks', getAllbooks)
+routes.get('/getBookById/:id', getBookById)
+routes.delete('/deleteBook/:id', deleteBook)
+routes.put('/updateBook/:id', updateBook)
 
-export default authRouter;
+export default routes
