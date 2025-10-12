@@ -33,4 +33,9 @@ mongoose
   });
 
 // ❌ NO app.listen() here — Vercel will handle it
+// Start Server (only for local development)
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
 export default app;
