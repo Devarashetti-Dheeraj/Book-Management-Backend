@@ -17,7 +17,7 @@ export const addBook = async (req: Request,res: Response)=>{
     }
 }
 
-export const getAllbooks = async (req: Request, res: Response) => {
+export const getAllbooks = async (_req: Request, res: Response) => {
   try {
     const books: IBook[] = await Book.find();
     const allBooks = books.map((book) => ({

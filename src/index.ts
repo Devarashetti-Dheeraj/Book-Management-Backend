@@ -32,7 +32,7 @@ mongoose
     console.error("❌ MongoDB Error:", err);
   });
 
-// ❌ NO app.listen() here — Vercel will handle it
+// ❌ NO app.listen() here, Vercel will handle it
 // Start Server (only for local development)
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
