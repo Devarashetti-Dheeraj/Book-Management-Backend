@@ -17,6 +17,11 @@ app.use(cors());
 app.use('/api/auth', authRouter);
 app.use('/api', routes);
 
+// Optional root route for sanity check
+app.get('/', (_req, res) => {
+  res.status(200).json({ message: 'Backend is running!' });
+});
+
 // MongoDB Connection
 const mongouri = process.env.Mongo_URI;
 
@@ -32,10 +37,10 @@ mongoose
     console.error("❌ MongoDB Error:", err);
   });
 
-// ❌ NO app.listen() here, Vercel will handle it
-// Start Server (only for local development)
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+// // ❌ NO app.listen() here, Vercel will handle it
+// // Start Server (only for local development)
+// const PORT = process.env.PORT || 8000;
+// app.listen(PORT, () => {
+//   console.log(`🚀 Server running on http://localhost:${PORT}`);
+// });
 export default app;
