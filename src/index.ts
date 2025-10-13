@@ -17,7 +17,7 @@ app.use(cors());
 app.use('/api/auth', authRouter);
 app.use('/api', routes);
 
-// Optional root route for sanity check
+
 app.get('/', (_req, res) => {
   res.status(200).json({ message: 'Backend is running!' });
 });
