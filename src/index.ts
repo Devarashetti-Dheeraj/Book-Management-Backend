@@ -4,46 +4,20 @@ import dotenv from 'dotenv';
 import authRouter from './route/userRoutes';
 import routes from './route/authBookRoutes';
 import cors from 'cors';
-import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
-
 const app = express();
 
-// Middlewares
 app.use(express.json());
 app.use(cors());
-
-// Routes
 app.use('/api/auth', authRouter);
 app.use('/api', routes);
 
+app.get('/', (_req, res) => res.json({ message: 'Backend running!' }));
 
-app.get('/', (_req, res) => {
-  res.status(200).json({ message: 'Backend is running!' });
-});
+mongoose.connect(process.env.Mongo_URI || 'mongodb://...', { dbName: 'Book_Management' })
+  .then(() => console.log('✅ MongoDB Connected'))
+  .catch(err => console.error('❌ MongoDB Error:', err));
 
-// MongoDB Connection
-const mongouri = process.env.Mongo_URI;
-
-mongoose
-  .connect(
-    mongouri || "mongodb+srv://dheeraj2032006_db_user:E6XfPVS7ROw7hnf2@cluster0.x8nvyzs.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    { dbName: "Book_Management" }
-  )
-  .then(() => {
-    console.log("✅ MongoDB Connected");
-  })
-  .catch((err: mongoose.Error) => {
-    console.error("❌ MongoDB Error:", err);
-  });
-
-// // ❌ NO app.listen() here, Vercel will handle it
-// // Start Server (only for local development)
-// const PORT = process.env.PORT || 8000;
-// app.listen(PORT, () => {
-//   console.log(`🚀 Server running on http://localhost:${PORT}`);
-// });
-export default (req: VercelRequest, res: VercelResponse) => {
-  app(req, res);
-};
+// Vercel serverless handler
+export default (req: any, res: any) => app(req, res);
