@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import authRouter from './route/userRoutes';
 import routes from './route/authBookRoutes';
 import cors from 'cors';
+import { VercelRequest, VercelResponse } from '@vercel/node';
 
 dotenv.config();
 
@@ -43,4 +44,6 @@ mongoose
 // app.listen(PORT, () => {
 //   console.log(`🚀 Server running on http://localhost:${PORT}`);
 // });
-export default app;
+export default (req: VercelRequest, res: VercelResponse) => {
+  app(req, res);
+};
